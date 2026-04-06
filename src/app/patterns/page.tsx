@@ -11,7 +11,7 @@ export default async function PatternsPage() {
     ? { user: { sub: "demo-user", name: "Demo User" } }
     : await auth0.getSession();
 
-  if (!session) redirect("/auth/login");
+  if (!session) redirect("/api/auth/login");
 
   const userId = session.user.sub as string;
 

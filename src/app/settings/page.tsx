@@ -19,7 +19,7 @@ export default async function SettingsPage() {
     ? { user: { sub: "demo-user", name: "Demo User", email: "demo@intent-agent.local" } }
     : await auth0.getSession();
 
-  if (!session) redirect("/auth/login");
+  if (!session) redirect("/api/auth/login");
 
   return (
     <main className="min-h-screen bg-[#06141b]">
@@ -65,7 +65,22 @@ export default async function SettingsPage() {
                 {DEMO_MODE ? "Demo" : "Production"}
               </span>
             </div>
-            <div className="flex items-center justify-between">
+            {DEMO_MODE && (
+              <div className="mt-4 p-4 rounded-lg bg-orange-500/10 border border-orange-500/30">
+                <h3 className="text-sm font-semibold text-orange-400 mb-2">🚀 How to Enable Real Capabilities</h3>
+                <p className="text-xs text-orange-200/80 mb-3 leading-relaxed">
+                  You are currently in Demo Mode. To use the real <strong>Auth0 Token Vault</strong> and interact with live external services (like Gmail, GitHub, Slack), you must configure your Vercel Environment Variables.
+                </p>
+                <ol className="text-[10px] text-orange-200/70 list-decimal pl-4 space-y-1">
+                  <li>Go to your Vercel Dashboard for this project.</li>
+                  <li>Click on <strong>Settings &gt; Environment Variables</strong>.</li>
+                  <li>Set <code>DEMO_MODE</code> to <code>false</code>.</li>
+                  <li>Add your Auth0 application keys: <code>AUTH0_SECRET</code>, <code>AUTH0_CLIENT_ID</code>, <code>AUTH0_CLIENT_SECRET</code>, <code>AUTH0_DOMAIN</code>.</li>
+                  <li>Go to the Deployments tab and click <strong>Redeploy</strong>.</li>
+                </ol>
+              </div>
+            )}
+            <div className="flex items-center justify-between mt-4">
               <span className="text-xs text-zinc-400">Auth0 Domain</span>
               <span className="text-xs text-zinc-300 font-mono">{process.env.AUTH0_DOMAIN ? "Configured" : "Not set"}</span>
             </div>

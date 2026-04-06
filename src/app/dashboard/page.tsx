@@ -12,7 +12,7 @@ export default async function DashboardPage() {
     ? { user: { sub: "demo-user", name: "Demo User", email: "demo@intent-agent.local" } }
     : await auth0.getSession();
 
-  if (!session) redirect("/auth/login");
+  if (!session) redirect("/api/auth/login");
 
   const userId = session.user.sub as string;
 
