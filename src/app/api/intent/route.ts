@@ -36,12 +36,14 @@ const DEMO_INTENT_SPEC = {
 
 export async function POST(req: NextRequest) {
   const isDemoMode = req.headers.get("x-demo-mode") === "true";
-  const realSession = await auth0.getSession().catch(() => null);
+  const realSession = auth0 ? await auth0.getSession().catch(() => null) : null;
   const providedKey = req.headers.get("x-groq-key");
-  const apiKey = providedKey || (realSession ? process.env.GROQ_API_KEY : "") || "";
+  const apiKey = providedKey || (realSession ? process.env.GROQ_API_KEY : "") || process.env.GROQ_API_KEY || "";
   const session = isDemoMode ? { user: { sub: "demo-user" } } : realSession;
+  
   if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    console.error("Intent Compilation: Unauthorized. Missing Auth0 Session.");
+    return NextResponse.json({ error: "Unauthorized. Ensure Auth0 variables are set for Real Mode." }, { status: 401 });
   }
 
   const userId = session.user.sub as string;

@@ -567,6 +567,10 @@ export async function POST(req: NextRequest) {
       return sendText(`Demo mode active. I can help with Gmail, Calendar, GitHub, and Slack. You asked: "${lastUser.slice(0, 100)}"`);
     }
 
+    if (!isDemoMode && !apiKey) {
+      return NextResponse.json({ error: "Missing Groq API Key. Please add GROQ_API_KEY to your Vercel Environment Variables." }, { status: 400 });
+    }
+
     const firstResponse = await groqChat(groqMessages, apiKey, TOOLS);
     const choice = firstResponse.choices?.[0]?.message;
 
