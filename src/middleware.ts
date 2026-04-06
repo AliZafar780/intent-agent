@@ -4,7 +4,15 @@ import { NextRequest, NextResponse } from "next/server";
 const DEMO_MODE = process.env.DEMO_MODE === "true";
 
 export async function middleware(req: NextRequest) {
-  const response = DEMO_MODE ? NextResponse.next() : await auth0.middleware(req);
+  let response = NextResponse.next();
+
+  if (!DEMO_MODE && auth0) {
+    try {
+      response = await auth0.middleware(req);
+    } catch (e) {
+      console.warn("⚠️ Auth0 middleware failed:", e);
+    }
+  }
 
   response.headers.set("X-Content-Type-Options", "nosniff");
   response.headers.set("X-Frame-Options", "DENY");
