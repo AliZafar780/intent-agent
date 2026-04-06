@@ -1,8 +1,17 @@
-# Intent Agent
+# 🛡️ Intent Agent
 
-> **The AI agent that compiles your intent, shows what permissions it needs, and executes securely through Auth0 Token Vault.**
+**Secure, Intent-Driven AI Operations with Auth0 Token Vault & Step-Up Authentication.**
 
-## The Problem
+Built for the **[Authorized to Act: Auth0 for AI Agents](https://auth0ai.devpost.com/)** Devpost Hackathon.
+
+![License](https://img.shields.io/badge/License-MIT-blue.svg)
+![Next.js](https://img.shields.io/badge/Next.js-14-black)
+![Auth0](https://img.shields.io/badge/Auth0-Secure-eb5424)
+
+## 🔗 Repository
+[https://github.com/AliZafar780/intent-agent](https://github.com/AliZafar780/intent-agent)
+
+## 📖 The Problem
 
 AI agents today have a dangerous gap: you describe what you want, the agent does it, but you have no idea what it accessed, what permissions it used, or whether it understood your intent correctly.
 
@@ -59,13 +68,23 @@ Intent Agent:
 - **TypeScript** — End-to-end type safety
 - **Tailwind CSS** — Clean, minimal dark theme UI
 
-## Getting Started
+## 🚀 Getting Started
 
-### 1. Clone and Install
+Follow these steps to run the Intent Agent locally on your machine.
+
+### 1. Clone the Repository
 
 ```bash
+git clone https://github.com/AliZafar780/intent-agent.git
 cd intent-agent
+```
+
+### 2. Install Dependencies
+
+```bash
 npm install
+# or
+yarn install
 ```
 
 ### 2. Set up Auth0
@@ -110,7 +129,19 @@ npm run dev
 
 Open http://localhost:3000
 
-## Architecture
+### 5. Deployment (Vercel)
+
+The easiest way to deploy this application is using [Vercel](https://vercel.com/):
+
+1. Go to [Vercel.com](https://vercel.com/new) and log in.
+2. Click **Add New... > Project**.
+3. Import your `intent-agent` repository from GitHub.
+4. Open the **Environment Variables** section and add all the required variables from your `.env.local` file (AUTH0 credentials, GROQ_API_KEY, and set `DEMO_MODE=false`).
+5. Click **Deploy**.
+
+---
+
+## 🏗️ Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
