@@ -499,8 +499,8 @@ RULES:
 export async function POST(req: NextRequest) {
   const isDemoMode = req.headers.get("x-demo-mode") === "true";
   try {
-    const realSession = await auth0.getSession().catch(() => null);
-    const apiKey = req.headers.get("x-groq-key") || (realSession ? process.env.GROQ_API_KEY : "") || "";
+    const realSession = auth0 ? await auth0.getSession().catch(() => null) : null;
+    const apiKey = req.headers.get("x-groq-key") || (realSession ? process.env.GROQ_API_KEY : "") || process.env.GROQ_API_KEY || "";
     const session = isDemoMode ? { user: { sub: "demo-user", name: "Demo User" } } : realSession;
     if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
