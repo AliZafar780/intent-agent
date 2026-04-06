@@ -8,7 +8,7 @@ import { getConnectionStatus, getDemoConnectionStatus } from "@/lib/auth0/token-
 export default async function Home() {
   const session = await auth0.getSession() || { user: { name: "Demo User", email: "demo@intent-agent.local" } };
 
-  if (!session) redirect("/auth/login");
+  if (!session) redirect("/api/auth/login");
 
   let conns;
   try {
@@ -71,7 +71,7 @@ export default async function Home() {
           </div>
 
           {(session.user?.email !== "demo@intent-agent.local") && (
-            <a href="/auth/logout" className="text-[10px] text-zinc-600 hover:text-zinc-400 transition-colors focus:outline-none focus:ring-2 focus:ring-violet-500 rounded px-1">Sign out</a>
+            <a href="/api/auth/logout" className="text-[10px] text-zinc-600 hover:text-zinc-400 transition-colors focus:outline-none focus:ring-2 focus:ring-violet-500 rounded px-1">Sign out</a>
           )}
         </nav>
       </header>
