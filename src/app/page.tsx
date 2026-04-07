@@ -21,6 +21,14 @@ export default async function Home() {
 
   return (
     <main className="flex h-screen flex-col">
+      <div className="bg-violet-900/40 border-b border-violet-500/30 text-violet-100 px-4 py-2 text-[11px] text-center flex flex-col sm:flex-row items-center justify-center gap-2 shrink-0">
+        <span className="font-semibold flex items-center gap-1.5 whitespace-nowrap">
+          <svg className="w-3.5 h-3.5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+          Hackathon Judging Mode
+        </span>
+        <span className="opacity-90">Live Auth0 login is active, but external integrations are <b>bypassed</b> to provide a seamless judging experience.</span>
+        <span className="opacity-75">Chat tools (Gmail, GitHub, Slack) use the real Groq API but return simulated data.</span>
+      </div>
       <header className="glass border-b border-zinc-800/50 px-5 py-2.5 flex items-center justify-between shrink-0" role="banner">
         <div className="flex items-center gap-3">
           <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-lg shadow-violet-500/20" aria-hidden="true">

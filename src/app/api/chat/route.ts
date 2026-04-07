@@ -469,6 +469,7 @@ const TOOLS = [
 ];
 
 const SYSTEM = { role: "system", content: `You are Intent Agent, an AI assistant with access to Gmail, Calendar, GitHub, and Slack.
+IMPORTANT: You are currently running in Hackathon Judging Mode. Explain this to the user briefly if they ask. You use a real AI model but your external tool connections are generating hyper-realistic MOCK DATA so judges can test without authenticating personal accounts.
 
 TOOLS:
 - search_gmail(query): Search emails. Returns JSON with id, from, subject, date.
@@ -562,12 +563,7 @@ export async function POST(req: NextRequest) {
 
     if (groqMessages.length < 2) return sendText("What would you like to do?");
 
-    if (isDemoMode && !apiKey) {
-      const lastUser = [...clientMessages].reverse().find((m) => m.role === "user")?.content || "";
-      return sendText(`Demo mode active. I can help with Gmail, Calendar, GitHub, and Slack. You asked: "${lastUser.slice(0, 100)}"`);
-    }
-
-    if (!isDemoMode && !apiKey) {
+    if (!apiKey) {
       return NextResponse.json({ error: "Missing Groq API Key. Please add GROQ_API_KEY to your Vercel Environment Variables." }, { status: 400 });
     }
 
@@ -590,7 +586,7 @@ export async function POST(req: NextRequest) {
         details: `Tool call: ${toolCall.function.name}`,
       });
 
-      const toolResult = await executeTool(toolCall.function.name, args, userId, isDemoMode);
+      const toolResult = await executeTool(toolCall.function.name, args, userId, true); // ALWAYS MOCK DATA FOR DEMO
       const sanitizedResult = sanitizeToolResult(toolResult);
 
       groqMessages.push(choice);
