@@ -104,7 +104,8 @@ export async function POST(req: NextRequest) {
           completenessScore: demoSpec.completenessScore,
         });
         learnPrefs(userId, demoSpec);
-      } catch {
+      } catch (error) {
+        console.error('[intent-agent]', error);
       }
 
       logAudit({
@@ -135,7 +136,8 @@ export async function POST(req: NextRequest) {
         completenessScore: spec.completenessScore,
       });
       learnPrefs(userId, spec);
-    } catch {
+    } catch (error) {
+      console.error('[intent-agent]', error);
     }
 
     logAudit({

@@ -575,7 +575,7 @@ export async function POST(req: NextRequest) {
     if (choice.tool_calls?.length) {
       const toolCall = choice.tool_calls[0];
       let args: any = {};
-      try { args = JSON.parse(toolCall.function.arguments || "{}"); } catch {}
+      try { args = JSON.parse(toolCall.function.arguments || "{}"); } catch (error) { console.error('[intent-agent]', error); }
 
       logAudit({
         userId,
@@ -586,7 +586,7 @@ export async function POST(req: NextRequest) {
         details: `Tool call: ${toolCall.function.name}`,
       });
 
-      const toolResult = await executeTool(toolCall.function.name, args, userId, true); // ALWAYS MOCK DATA FOR DEMO
+      const toolResult = await executeTool(toolCall.function.name, args, userId, isDemoMode);
       const sanitizedResult = sanitizeToolResult(toolResult);
 
       groqMessages.push(choice);
@@ -596,7 +596,7 @@ export async function POST(req: NextRequest) {
       try {
         const second = await groqChat(groqMessages, apiKey, TOOLS);
         finalText = second.choices?.[0]?.message?.content || "";
-      } catch {}
+      } catch (error) { console.error('[intent-agent]', error); }
 
       if (!finalText.trim()) finalText = formatResult(toolCall.function.name, toolResult);
 

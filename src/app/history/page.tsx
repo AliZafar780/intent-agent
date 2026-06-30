@@ -20,7 +20,8 @@ export default async function HistoryPage(props: { searchParams: Promise<{ q?: s
   let intents: any[] = [];
   try {
     intents = query ? searchIntents(userId, query) : getIntents(userId, 50);
-  } catch {
+  } catch (error) {
+    console.error('[intent-agent]', error);
   }
 
   return (
@@ -66,7 +67,7 @@ export default async function HistoryPage(props: { searchParams: Promise<{ q?: s
           <div className="space-y-3">
             {intents.map((intent: any) => {
               let perms: any[] = [];
-              try { perms = typeof intent.permissions === "string" ? JSON.parse(intent.permissions) : intent.permissions || []; } catch {}
+              try { perms = typeof intent.permissions === "string" ? JSON.parse(intent.permissions) : intent.permissions || []; } catch (error) { console.error('[intent-agent]', error); }
               const destructive = perms.some((p: any) => p.destructive);
 
               return (

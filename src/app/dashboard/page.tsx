@@ -26,7 +26,8 @@ export default async function DashboardPage() {
     patterns = getPatterns(userId);
     recentIntents = getRecentIntents(userId, 5);
     intentCount = getIntentCount(userId);
-  } catch {
+  } catch (error) {
+    console.error('[intent-agent]', error);
   }
 
   return (

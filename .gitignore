@@ -30,3 +30,10 @@ npm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Database
+data/
+data/*.db
+data/*.db-shm
+data/*.db-wal
+data/*.db-journal

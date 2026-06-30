@@ -98,7 +98,7 @@ export function checkOrigin(req: NextRequest): boolean {
       }
     });
   } catch {
-    return true;
+    return false;
   }
 }
 

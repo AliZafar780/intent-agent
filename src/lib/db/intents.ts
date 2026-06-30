@@ -95,6 +95,7 @@ export function getRecentIntents(userId: string, limit = 10): IntentRecord[] {
 }
 
 export function searchIntents(userId: string, term: string): IntentRecord[] {
+  const sanitizedTerm = (term || '').slice(0, 200);
   return query<IntentRecord>(
     `SELECT * FROM intents
      WHERE user_id = ? AND (
@@ -103,7 +104,7 @@ export function searchIntents(userId: string, term: string): IntentRecord[] {
      )
      ORDER BY created_at DESC
      LIMIT 50`,
-    [userId, `%${term}%`, `%${term}%`]
+    [userId, `%${sanitizedTerm}%`, `%${sanitizedTerm}%`]
   );
 }
 

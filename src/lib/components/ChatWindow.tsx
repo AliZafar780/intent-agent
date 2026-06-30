@@ -138,7 +138,8 @@ export default function ChatWindow({ user }: Props) {
           windowslive: data.connections?.microsoft ?? prev.windowslive,
         }));
       }
-    } catch {
+    } catch (error) {
+      console.error('[intent-agent]', error);
     }
   }, []);
 
@@ -218,7 +219,8 @@ export default function ChatWindow({ user }: Props) {
             const last = toolCalls[toolCalls.length - 1];
             if (last) last.output = data.output;
           }
-        } catch {
+        } catch (error) {
+          console.error('[intent-agent]', error);
         }
       }
 
@@ -315,7 +317,8 @@ export default function ChatWindow({ user }: Props) {
     try {
       const d = JSON.parse(raw);
       if (d.from && d.subject) return d;
-    } catch {
+    } catch (error) {
+      console.error('[intent-agent]', error);
     }
     return null;
   }

@@ -30,7 +30,8 @@ export default async function PatternsPage() {
   try {
     patterns = getPatterns(userId);
     mostUsed = getMostUsedServices(userId);
-  } catch {
+  } catch (error) {
+    console.error('[intent-agent]', error);
   }
 
   return (

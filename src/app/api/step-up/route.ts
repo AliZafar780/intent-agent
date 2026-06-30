@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import { NextRequest, NextResponse } from "next/server";
 import { auth0 } from "@/lib/auth0/client";
 import { withSecurityHeaders, checkOrigin, checkRateLimit } from "@/lib/security/validation";
@@ -30,7 +31,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Action and service required" }, { status: 400 });
     }
 
-    const requestId = `stepup_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
+    const requestId = `stepup_${Date.now().toString(36)}_${crypto.randomUUID().slice(0,8)}`;
 
     createStepUpRequest({
       id: requestId,

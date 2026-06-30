@@ -78,7 +78,8 @@ export function getAuditLog(userId?: string, limit = 50): AuditEntry[] {
         status: l.status as AuditEntry["status"],
         details: l.details || undefined,
       }));
-    } catch {
+    } catch (error) {
+      console.error('[intent-agent]', error);
     }
   }
   const filtered = userId ? memoryLog.filter((e) => e.userId === userId) : memoryLog;
